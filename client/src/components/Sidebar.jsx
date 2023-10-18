@@ -1,222 +1,102 @@
-import { useState } from "react";
-import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
-import "react-pro-sidebar/dist/css/styles.css";
-// import { tokens } from "../../theme";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
-import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
-import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
-import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
-import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-import AnalyticsOutlinedIcon from "@mui/icons-material/AnalyticsOutlined";
-import ArrowCircleUpOutlinedIcon from "@mui/icons-material/ArrowCircleUpOutlined";
-import profileImage from "assets/profile.jpeg";
+import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react";
+import { useContext, createContext, useState } from "react";
 
-import {
-  AssessmentOutlined,
-  BlurOnOutlined,
-  BorderClearOutlined,
-  EventNoteOutlined,
-} from "@mui/icons-material";
-import DynamicFormOutlinedIcon from "@mui/icons-material/DynamicFormOutlined";
+const SidebarContext = createContext();
 
-const Item = ({ title, to, icon, selected, setSelected }) => {
-  const theme = useTheme();
-  // const theme.palette = tokens(theme.palette.mode);
-  return (
-    <MenuItem
-      active={selected === title}
-      style={{
-        color: theme.palette.grey[100],
-      }}
-      onClick={() => setSelected(title)}
-      icon={icon}
-    >
-      <Typography>{title}</Typography>
-      <Link to={to} />
-    </MenuItem>
-
-    // <IconButton onClick={() => setSelected(title)} icon={icon}></IconButton>
-  );
-};
-
-const Sidebar = () => {
-  const theme = useTheme();
-  const colors = theme.palette;
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [selected, setSelected] = useState("Dashboard");
+export default function Sidebar({ children }) {
+  const [expanded, setExpanded] = useState(true);
 
   return (
-    <Box
-      sx={{
-        "& .pro-menu-item": {
-          color: `${colors.primary[100]} !important`,
-        },
-        "& .pro-sidebar-inner": {
-          background: `${colors.primary.main} !important`,
-        },
-        "& .pro-icon-wrapper": {
-          backgroundColor: "transparent !important",
-        },
-        "& .pro-inner-item": {
-          padding: "5px 35px 5px 20px !important",
-        },
-        "& .pro-inner-item:hover": {
-          color: "#f7c548 !important",
-          backgroundColor: "#191F45 !important",
-        },
-        "& .pro-menu-item.active": {
-          color: "#cca752 !important",
-          backgroundColor: "#191F45 !important",
-          fontWeight: "bold",
-        },
-      }}
-    >
-      <ProSidebar collapsed={isCollapsed}>
-        <Menu iconShape="square">
-          {/* LOGO AND MENU ICON */}
-          <MenuItem
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
-            style={{
-              margin: "10px 0 20px 0",
-              color: theme.palette.secondary[300],
-            }}
+    <aside className="h-screen">
+      <nav className="h-full flex flex-col bg-white border-r shadow-sm">
+        <div className="p-4 pb-2 flex justify-between items-center">
+          <img
+            src="https://img.logoipsum.com/243.svg"
+            className={`overflow-hidden transition-all ${
+              expanded ? "w-32" : "w-0"
+            }`}
+            alt=""
+          />
+          <button
+            onClick={() => setExpanded((curr) => !curr)}
+            className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
           >
-            {!isCollapsed && (
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                ml="15px"
-              >
-                <Typography variant="h3" color={theme.palette.primary[100]}>
-                  DASH
-                </Typography>
-                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                  <MenuOutlinedIcon />
-                </IconButton>
-              </Box>
-            )}
-          </MenuItem>
+            {expanded ? <ChevronFirst /> : <ChevronLast />}
+          </button>
+        </div>
 
-          {/* {!isCollapsed && (
-            <Box mb="25px">
-              <Box display="flex" justifyContent="center" alignItems="center">
-                <img
-                  alt="profile-user"
-                  width="100px"
-                  height="100px"
-                  src={profileImage}
-                  style={{ cursor: "pointer", borderRadius: "55%" }}
-                />
-              </Box>
-              <Box textAlign="center">
-                <Typography
-                  variant="h2"
-                  color={colors.primary[100]}
-                  fontWeight="bold"
-                  sx={{ m: "10px 0 0 0" }}
-                >
-                  Mark Ozaeta
-                </Typography>
-                <Typography variant="h5" color={colors.primary[100]}>
-                  Developer
-                </Typography>
-              </Box>
-            </Box>
-          )} */}
+        <SidebarContext.Provider value={{ expanded }}>
+          <ul className="flex-1 px-3">{children}</ul>
+        </SidebarContext.Provider>
 
-          <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-            <Item
-              title="Dashboard"
-              to="/dashboard"
-              icon={<HomeOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-              fontWeight="bold"
-            />
-
-            <Typography
-              variant="h6"
-              color={colors.primary[100]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Defects
-            </Typography>
-            <Item
-              title="Manage Logs"
-              to="/defects/create"
-              icon={<BorderColorOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Defects Dashboard"
-              to="/defects"
-              icon={<AssessmentOutlined />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Typography
-              variant="h6"
-              color={theme.palette.primary[100]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Pages
-            </Typography>
-            <Item
-              title="Projects Dashboard"
-              to="/projects"
-              icon={<DynamicFormOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Calendar"
-              to="/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Project View"
-              to="/projectview"
-              icon={<EventNoteOutlined />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Typography
-              variant="h6"
-              color={theme.palette.primary[100]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Performance Monitoring
-            </Typography>
-            <Item
-              title="Performance Overview"
-              to="/performance"
-              icon={<AnalyticsOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="File Upload"
-              to="/performance/upload"
-              icon={<ArrowCircleUpOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-          </Box>
-        </Menu>
-      </ProSidebar>
-    </Box>
+        <div className="border-t flex p-3">
+          <img
+            src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
+            alt=""
+            className="w-10 h-10 rounded-md"
+          />
+          <div
+            className={`
+              flex justify-between items-center
+              overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}
+          `}
+          >
+            <div className="leading-4">
+              <h4 className="font-semibold">John Doe</h4>
+              <span className="text-xs text-gray-600">johndoe@gmail.com</span>
+            </div>
+            <MoreVertical size={20} />
+          </div>
+        </div>
+      </nav>
+    </aside>
   );
-};
+}
 
-export default Sidebar;
+export function SidebarItem({ icon, text, active, alert }) {
+  const { expanded } = useContext(SidebarContext);
+
+  return (
+    <li
+      className={`
+        relative flex items-center py-2 px-3 my-1
+        font-medium rounded-md cursor-pointer
+        transition-colors group
+        ${
+          active
+            ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
+            : "hover:bg-indigo-50 text-gray-600"
+        }
+    `}
+    >
+      {icon}
+      <span
+        className={`overflow-hidden transition-all ${
+          expanded ? "w-52 ml-3" : "w-0"
+        }`}
+      >
+        {text}
+      </span>
+      {alert && (
+        <div
+          className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${
+            expanded ? "" : "top-2"
+          }`}
+        />
+      )}
+
+      {!expanded && (
+        <div
+          className={`
+          absolute left-full rounded-md px-2 py-1 ml-6
+          bg-indigo-100 text-indigo-800 text-sm
+          invisible opacity-20 -translate-x-3 transition-all
+          group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
+      `}
+        >
+          {text}
+        </div>
+      )}
+    </li>
+  );
+}

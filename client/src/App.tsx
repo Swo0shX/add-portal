@@ -7,8 +7,8 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./scenes/layout";
 import Header from "../src/components/Header";
 import Home from "../src/components/Home";
-import PerformanceIndex from "./scenes/performance";
-import Peofrmance from "./scenes/performance";
+import PerformanceIndex from "./scenes/kra";
+import Peofrmance from "./scenes/kra";
 function App() {
   // const mode = useSelector((state) => state.global.mode);
   // const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);

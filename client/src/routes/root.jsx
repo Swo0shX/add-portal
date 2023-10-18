@@ -1,40 +1,33 @@
+import React, { useState } from "react";
+import { Box, useMediaQuery } from "@mui/material";
 import { Outlet } from "react-router-dom";
+import Sidebar from "../components/Sidebar";
+// import Navbar from "../components/Navbar";
+// import { useSelector } from "react-redux";
 
 export default function Root() {
+  const isNonMobile = useMediaQuery("(min-width: 600px)");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  // const userId = useSelector((state) => state.global.userId);
   return (
-    <>
-      <div id="sidebar">
-        <h1>React Router Contacts</h1>
-        <div>
-          <form id="search-form" role="search">
-            <input
-              id="q"
-              aria-label="Search contacts"
-              placeholder="Search"
-              type="search"
-              name="q"
-            />
-            <div id="search-spinner" aria-hidden hidden={true} />
-            <div className="sr-only" aria-live="polite"></div>
-          </form>
-          <form method="post">
-            <button type="submit">New</button>
-          </form>
-        </div>
-        <nav>
-          <ul>
-            <li>
-              <a href={`/contacts/1`}>Your Name</a>
-            </li>
-            <li>
-              <a href={`/contacts/2`}>Your Friend</a>
-            </li>
-          </ul>
-        </nav>
+    // <>
+    //   <Sidebar />
+    //   <Outlet />
+    // </>
+
+    <Box display={isNonMobile ? "flex" : "block"} width="100%" height="100%">
+      <div className="bg-blue-900">
+        <Sidebar
+          // user={data || {}}
+          isNonMobile={isNonMobile}
+          drawerWidth="250px"
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
+        />
       </div>
-      <div id="detail">
+      <Box flexGrow={1}>
         <Outlet />
-      </div>
-    </>
+      </Box>
+    </Box>
   );
 }
