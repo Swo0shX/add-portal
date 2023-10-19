@@ -7,25 +7,25 @@ import {
   RouterProvider,
 } from "react-router-dom";
 // import PerformanceIndex from "./scenes/performance";
-import Root from "./routes/root";
-import Contact from "./routes/contact";
+import Layout from "./layout";
 // import Performance from "./routes/performance";
 import Dashboard from "./scenes/dashboard";
-// import PerformanceIndex from "./scenes/kra";
+import Performance from "./scenes/performance";
 import "./index.css";
-import App from "./App";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <Layout />,
     children: [
       {
-        path: "contacts/:contactId",
-        element: <Contact />,
+        path: "/dashboard",
+        element: <Dashboard />,
+        // element: <Performance />,
+        // element: <Contact />,
       },
       {
-        path: "dashboard",
-        element: <Dashboard />,
+        path: "/performance",
+        element: <Performance />,
         // element: <Performance />,
         // element: <Contact />,
       },

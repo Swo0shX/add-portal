@@ -1,5 +1,10 @@
-import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react";
+import * as React from "react";
+// import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react";
 import { useContext, createContext, useState } from "react";
+import { Link } from "react-router-dom";
+import logo from "../assets/logo.jpeg";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 
 const SidebarContext = createContext();
 
@@ -8,20 +13,21 @@ export default function Sidebar({ children }) {
 
   return (
     <aside className="h-screen">
-      <nav className="h-full flex flex-col bg-white border-r shadow-sm">
-        <div className="p-4 pb-2 flex justify-between items-center">
-          <img
-            src="https://img.logoipsum.com/243.svg"
-            className={`overflow-hidden transition-all ${
-              expanded ? "w-32" : "w-0"
+      <nav className="h-full flex flex-col bg-slate-800 border-r shadow-sm border-slate-800">
+        <div className="p-2 pb-2 flex justify-between items-center">
+          <span
+            className={`overflow-hidden transition-all text-slate-300 font-bold ${
+              expanded ? "w-50" : "w-0"
             }`}
-            alt=""
-          />
+          >
+            ADD Portal
+          </span>
           <button
             onClick={() => setExpanded((curr) => !curr)}
-            className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
+            className="p-2 rounded-full bg-slate-800 text-slate-200 hover:bg-slate-700 "
           >
-            {expanded ? <ChevronFirst /> : <ChevronLast />}
+            {/* {expanded ? <ChevronFirst /> : <ChevronLast />} */}
+            <MenuOutlinedIcon />
           </button>
         </div>
 
@@ -45,7 +51,7 @@ export default function Sidebar({ children }) {
               <h4 className="font-semibold">John Doe</h4>
               <span className="text-xs text-gray-600">johndoe@gmail.com</span>
             </div>
-            <MoreVertical size={20} />
+            <MoreVertOutlinedIcon />
           </div>
         </div>
       </nav>
@@ -53,21 +59,15 @@ export default function Sidebar({ children }) {
   );
 }
 
-export function SidebarItem({ icon, text, active, alert }) {
+export function SidebarItem({ icon, text, active, alert, to }) {
   const { expanded } = useContext(SidebarContext);
 
   return (
     <li
-      className={`
+      className="
         relative flex items-center py-2 px-3 my-1
-        font-medium rounded-md cursor-pointer
-        transition-colors group
-        ${
-          active
-            ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
-            : "hover:bg-indigo-50 text-gray-600"
-        }
-    `}
+        font-medium rounded-md cursor-pointer text-gray-300
+        transition-colors group hover:text-slate-800 hover:bg-sky-200"
     >
       {icon}
       <span
@@ -75,7 +75,7 @@ export function SidebarItem({ icon, text, active, alert }) {
           expanded ? "w-52 ml-3" : "w-0"
         }`}
       >
-        {text}
+        <Link to={to}>{text} </Link>
       </span>
       {alert && (
         <div

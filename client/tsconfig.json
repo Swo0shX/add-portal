@@ -21,6 +21,13 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "tailwind.config.js",
+    "src/components/Sidebar.tsx"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
