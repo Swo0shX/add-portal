@@ -18,26 +18,21 @@ const Performance = () => {
   const handleFormSubmit = async (values, onSubmitProps) => {
     const formData = new FormData();
 
-    for (let value in values) {
-      formData.append(value, values[value]);
-    }
+formData.append("userId", "mpozaeta")
 
     for (let file in files) {
       formData.append("attachments", files[file]);
-      formData.append("fileName", files[file].name);
+      formData.append("filename", files[file].name);
     }
 
-    // formData.append("attachments", files);
-
     try {
-      //TODO: need to change endpoint to save file
-      // const data = await fetch("http://localhost:3002/projects", {
-      //   method: "POST",
+      const data = await fetch("http://localhost:3003/performance/uploadfile", {
+        method: "POST",
 
-      //   body: formData,
-      // }).then((res) => res.json());
+        body: formData,
+      }).then((res) => res.json());
 
-      alert(formData.getAll("attachments"));
+    
     } catch (err) {
       alert(err);
     }
@@ -57,10 +52,10 @@ const Performance = () => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      "application/msword": [],
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
-        [],
-      "application/pdf": [],
+      // "application/msword": [],
+      // "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+      //   [],
+      // "application/pdf": [],
       "application/vnd.ms-excel": [],
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [],
     },
@@ -99,11 +94,7 @@ const Performance = () => {
                 >
                   <div
                     className="pt-2 h-20 border-dashed border border-slate-400 hover:cursor-pointer"
-                    // gridColumn="span 4"
-                    // border={`2px dashed`}
-                    // borderRadius="5px"
-                    // sx={{ "&:hover": { cursor: "pointer" } }}
-                    // p=".5rem"
+                
                     {...getRootProps()}
                   >
                     <input {...getInputProps()} />
@@ -126,7 +117,7 @@ const Performance = () => {
                           type="button"
                           onClick={() => removeFile(file.name)}
                         >
-                          <DeleteOutlined />
+                          <DeleteOutlined className="rounded-xl text-slate-400 hover:bg-red-500 hover:text-slate-800" />
                         </IconButton>
                       </li>
                     ))}
