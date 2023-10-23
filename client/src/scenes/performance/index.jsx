@@ -18,7 +18,7 @@ const Performance = () => {
   const handleFormSubmit = async (values, onSubmitProps) => {
     const formData = new FormData();
 
-formData.append("userId", "mpozaeta")
+    formData.append("userId", "mpozaeta");
 
     for (let file in files) {
       formData.append("attachments", files[file]);
@@ -27,12 +27,13 @@ formData.append("userId", "mpozaeta")
 
     try {
       const data = await fetch("http://localhost:3003/performance/uploadfile", {
+        // const data = await fetch(
+        // "http://172.19.13.216:3101/performance/uploadfile",
+
         method: "POST",
 
         body: formData,
       }).then((res) => res.json());
-
-    
     } catch (err) {
       alert(err);
     }
@@ -94,7 +95,6 @@ formData.append("userId", "mpozaeta")
                 >
                   <div
                     className="pt-2 h-20 border-dashed border border-slate-400 hover:cursor-pointer"
-                
                     {...getRootProps()}
                   >
                     <input {...getInputProps()} />

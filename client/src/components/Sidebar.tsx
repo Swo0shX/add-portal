@@ -6,7 +6,7 @@ import logo from "../assets/logo.jpeg";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 
-const SidebarContext = createContext();
+const SidebarContext = createContext(true);
 
 export default function Sidebar({ children }) {
   const [expanded, setExpanded] = useState(true);
@@ -31,7 +31,7 @@ export default function Sidebar({ children }) {
           </button>
         </div>
 
-        <SidebarContext.Provider value={{ expanded }}>
+        <SidebarContext.Provider value={expanded}>
           <ul className="flex-1 px-3">{children}</ul>
         </SidebarContext.Provider>
 
@@ -60,7 +60,7 @@ export default function Sidebar({ children }) {
 }
 
 export function SidebarItem({ icon, text, active, alert, to }) {
-  const { expanded } = useContext(SidebarContext);
+  const expanded: boolean = useContext(SidebarContext);
 
   return (
     <li
