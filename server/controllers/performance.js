@@ -158,3 +158,19 @@ function getFinalRating(percentage) {
     return 2;
   }
 }
+
+export async function getPerfDetails(req, res) {
+  try {
+    // connectToDB();
+    const { user } = req.params;
+    const details = await PerformanceDetails.find({
+      requestType: { $in: ["IR/PL/SR", "CR/PR"] },
+      // requestType: { $in: ["CR/PR"] },
+    });
+    // console.log(perfDetails);
+
+    res.status(200).json(details);
+  } catch (error) {
+    throw new Error(`Failed to get performance details: ${error.message}`);
+  }
+}

@@ -17,7 +17,7 @@ export default function Sidebar({ children }) {
         <div className="p-2 pb-2 flex justify-between items-center">
           <span
             className={`overflow-hidden transition-all text-slate-300 font-bold ${
-              expanded ? "w-50" : "w-0"
+              expanded ? "w-40" : "w-0"
             }`}
           >
             ADD Portal
@@ -72,7 +72,7 @@ export function SidebarItem({ icon, text, active, alert, to }) {
       {icon}
       <span
         className={`overflow-hidden transition-all ${
-          expanded ? "w-52 ml-3" : "w-0"
+          expanded ? "w-40 ml-3" : "w-0"
         }`}
       >
         <Link to={to}>{text} </Link>

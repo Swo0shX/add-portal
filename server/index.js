@@ -9,6 +9,7 @@ import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
 import { uploadMonitoringFile } from "./controllers/performance.js";
+import perfRoutes from "./routers/performance.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -40,6 +41,8 @@ app.post(
   upload.any("attachments"),
   uploadMonitoringFile
 );
+
+app.use("/performance", perfRoutes);
 
 /* mongoose setup*/
 const PORT = process.env.PORT || 6001;
