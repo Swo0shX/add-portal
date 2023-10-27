@@ -10,6 +10,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { uploadMonitoringFile } from "./controllers/performance.js";
 import perfRoutes from "./routers/performance.js";
+import userRouter from "./routers/users.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -43,7 +44,7 @@ app.post(
 );
 
 app.use("/performance", perfRoutes);
-
+app.use("/user", userRouter);
 /* mongoose setup*/
 const PORT = process.env.PORT || 6001;
 mongoose

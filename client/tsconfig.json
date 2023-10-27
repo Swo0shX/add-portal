@@ -28,7 +28,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "tailwind.config.js",
-    "src/components/Sidebar.tsx"
+    "src/components/Sidebar.tsx",
+    "src/main.jsx"
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

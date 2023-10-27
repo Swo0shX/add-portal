@@ -87,7 +87,7 @@ const Performance = () => {
   };
   return (
     <div className="flex flex-row gap-1 text-opacity-25">
-      <div className="max-w-sm pt-10 pl-6 pr-6 items-center text-center ">
+      <div className="max-w-sm pt-10 pl-7 pr-6 items-center text-center ">
         <Wrapper>
           <div className="text-gray-400 h-fit p-4">
             <Formik
@@ -122,8 +122,8 @@ const Performance = () => {
                       {isDragActive ? (
                         <p>Drop files here...</p>
                       ) : (
-                        <p>
-                          You may click here or drop the files to start the
+                        <p className="p-1">
+                          You may click here or drop the file to start the
                           upload.
                         </p>
                       )}
